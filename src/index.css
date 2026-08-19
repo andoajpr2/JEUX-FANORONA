@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Outfit", "Trebuchet MS", sans-serif;
+
+  /* Deep espresso pit tones (backgrounds) */
+  --color-pit-950: #120b06;
+  --color-pit-900: #1a110a;
+  --color-pit-850: #211609;
+  --color-pit-800: #2a1c0f;
+  --color-pit-700: #3b2817;
+
+  /* Carved rosewood board */
+  --color-wood-700: #5c3a1d;
+  --color-wood-600: #7a4e27;
+  --color-wood-500: #96652f;
+  --color-wood-400: #b07f46;
+  --color-wood-300: #cd9f63;
+  --color-wood-200: #e3bf8b;
+
+  /* Gilded accents */
+  --color-gold-600: #b8842a;
+  --color-gold-500: #e0a83c;
+  --color-gold-400: #f0be5e;
+  --color-gold-300: #f7d489;
+
+  /* Ivory stones */
+  --color-ivory-400: #e6d3a8;
+  --color-ivory-300: #f3e6c8;
+  --color-ivory-200: #faf1dc;
+
+  /* Malagasy red + green */
+  --color-ember-600: #a83527;
+  --color-ember-500: #d1493a;
+  --color-ember-400: #e0604f;
+  --color-leaf-600: #2e6e49;
+  --color-leaf-500: #3e8e5f;
+  --color-leaf-400: #57a878;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--color-pit-950);
+  color: var(--color-ivory-200);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- ambient layered background ---------- */
+.bg-ambient {
+  background-color: var(--color-pit-950);
+  background-image:
+    radial-gradient(1100px 620px at 12% -8%, rgba(224, 168, 60, 0.11), transparent 62%),
+    radial-gradient(900px 540px at 96% 14%, rgba(62, 142, 95, 0.07), transparent 60%),
+    radial-gradient(1000px 700px at 55% 118%, rgba(209, 73, 58, 0.08), transparent 62%);
+}
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* carved wood board surface */
+.board-surface {
+  background:
+    radial-gradient(120% 90% at 50% 38%, rgba(255, 226, 166, 0.16), transparent 55%),
+    linear-gradient(148deg, #b07f46 0%, #96652f 34%, #7d4f24 68%, #6b421e 100%);
+  box-shadow:
+    inset 0 0 0 2px rgba(46, 26, 10, 0.55),
+    inset 0 10px 28px rgba(255, 214, 150, 0.14),
+    inset 0 -14px 30px rgba(30, 15, 4, 0.5);
+}
+.board-frame {
+  background: linear-gradient(160deg, #4a2f18 0%, #33200e 45%, #201206 100%);
+  box-shadow:
+    0 24px 60px -18px rgba(0, 0, 0, 0.75),
+    0 4px 14px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(247, 212, 137, 0.18),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- piece skins ---------- */
+.stone-ivory {
+  background:
+    radial-gradient(circle at 33% 28%, #fffdf4 0%, #f3e6c8 38%, #d9c08c 72%, #a9834a 100%);
+  border: 1px solid rgba(122, 88, 36, 0.75);
+  box-shadow:
+    0 5px 10px rgba(10, 4, 0, 0.5),
+    inset 0 -3px 5px rgba(122, 84, 30, 0.35),
+    inset 0 2px 3px rgba(255, 255, 250, 0.9);
+}
+.stone-ebony {
+  background:
+    radial-gradient(circle at 33% 28%, #6e563c 0%, #3a2917 42%, #17100a 78%, #050302 100%);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  box-shadow:
+    0 5px 10px rgba(0, 0, 0, 0.55),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.6),
+    inset 0 2px 3px rgba(196, 160, 110, 0.5);
+}
+
+/* ---------- keyframes ---------- */
+@keyframes markerIn {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.22); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-marker-in { animation: markerIn 0.32s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+
+/* pop-in AND pulsing ring in one declaration — two animation classes would
+   override each other on the same element */
+.animate-capture-marker {
+  animation:
+    markerIn 0.32s cubic-bezier(0.2, 1.4, 0.4, 1) both,
+    captureRing 1.6s ease-out 0.4s infinite;
+}
+
+@keyframes captureRing {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(224, 96, 79, 0.55); }
+  55% { box-shadow: 0 0 0 7px rgba(224, 96, 79, 0); }
+}
+.animate-capture-ring { animation: captureRing 1.5s ease-out infinite; }
+
+@keyframes goldRing {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(240, 190, 94, 0.85), 0 0 18px 2px rgba(240, 190, 94, 0.35); }
+  50% { box-shadow: 0 0 0 3px rgba(240, 190, 94, 0.45), 0 0 8px 1px rgba(240, 190, 94, 0.18); }
+}
+.animate-gold-ring { animation: goldRing 1.6s ease-in-out infinite; }
+
+@keyframes stoneVanish {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.1) rotate(24deg); opacity: 0; }
+}
+.animate-stone-vanish { animation: stoneVanish 0.5s cubic-bezier(0.5, -0.2, 0.75, 0.4) forwards; }
+
+@keyframes floatFade {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  18% { transform: translateY(-10px) scale(1.15); opacity: 1; }
+  100% { transform: translateY(-64px) scale(1); opacity: 0; }
+}
+.animate-float-fade { animation: floatFade 1s ease-out forwards; }
+
+@keyframes riseIn {
+  from { transform: translateY(14px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-rise-in { animation: riseIn 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+
+@keyframes toastIn {
+  0% { transform: translateY(12px); opacity: 0; }
+  12% { transform: translateY(0); opacity: 1; }
+  85% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-6px); opacity: 0; }
+}
+.animate-toast { animation: toastIn 2.4s ease both; }
+
+@keyframes driftSlow {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to { transform: translate3d(28px, -22px, 0) rotate(1.5deg); }
+}
+.animate-drift-slow { animation: driftSlow 26s ease-in-out infinite alternate; }
+@keyframes driftSlower {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to { transform: translate3d(-34px, 26px, 0) rotate(-2deg); }
+}
+.animate-drift-slower { animation: driftSlower 34s ease-in-out infinite alternate; }
+
+@keyframes pulseSoft {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(240, 190, 94, 0.5); }
+  50% { transform: translateY(-1px); box-shadow: 0 0 0 6px rgba(240, 190, 94, 0); }
+}
+.animate-pulse-soft { animation: pulseSoft 1.4s ease-in-out infinite; }
+
+@keyframes doomedBlink {
+  0%, 100% { outline-color: rgba(224, 96, 79, 0.95); }
+  50% { outline-color: rgba(224, 96, 79, 0.35); }
+}
+.stone-doomed {
+  outline: 3px solid rgba(224, 96, 79, 0.95);
+  outline-offset: 2px;
+  animation: doomedBlink 0.8s ease-in-out infinite;
+}
+
+@keyframes emberRise {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  12% { opacity: 0.9; }
+  100% { transform: translateY(-46vh) scale(0.4); opacity: 0; }
+}
+.ember-particle { animation: emberRise linear infinite; }
+
+/* ---------- scrollbars ---------- */
+.log-scroll::-webkit-scrollbar { width: 8px; }
+.log-scroll::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.25); border-radius: 8px; }
+.log-scroll::-webkit-scrollbar-thumb { background: #4a3319; border-radius: 8px; }
+.log-scroll::-webkit-scrollbar-thumb:hover { background: #6b4a24; }
